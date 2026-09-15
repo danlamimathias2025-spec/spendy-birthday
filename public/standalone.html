@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL UP PROTOCOL | SPENDY's Birthday Present from SPLENZZY</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- canvas-confetti CDN for rich celebration particles -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: JetBrains Mono & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            slate: {
+              950: '#020617',
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              950: '#022c22',
+            },
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              950: '#451a03',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #020617;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Moving background grid drift */
+    .bg-grid-overlay {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(51, 65, 85, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(51, 65, 85, 0.12) 1px, transparent 1px);
+    }
+    @keyframes gridDrift {
+      0% { background-position: 0px 0px; }
+      100% { background-position: 32px 32px; }
+    }
+    .animate-grid-drift {
+      animation: gridDrift 16s linear infinite;
+    }
+
+    /* Faint cyber scanline sweep */
+    @keyframes scanlineSweep {
+      0% { transform: translateY(-100%); opacity: 0; }
+      20% { opacity: 0.18; }
+      80% { opacity: 0.18; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    .animate-scanline {
+      animation: scanlineSweep 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Continuous pulsing emerald glow on the execute button */
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 20px -2px rgba(16, 185, 129, 0.4), 0 0 45px -8px rgba(16, 185, 129, 0.25);
+        transform: translateY(0px) scale(1);
+      }
+      50% {
+        box-shadow: 0 0 35px 2px rgba(16, 185, 129, 0.65), 0 0 65px -4px rgba(16, 185, 129, 0.4);
+        transform: translateY(-1px) scale(1.015);
+      }
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Radar ping for telemetry indicator */
+    @keyframes radarPing {
+      0% { transform: scale(0.95); opacity: 0.85; }
+      70% { transform: scale(2.2); opacity: 0; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .animate-radar-ping {
+      animation: radarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Sparkle Star */
+    .sparkle-star {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.4s ease-out;
+    }
+
+    /* Horizontal Marquee Text */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 14s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    /* Ambient Dynamic Neon Lights */
+    @keyframes neonShift {
+      0% { filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.7)) hue-rotate(0deg); }
+      33% { filter: drop-shadow(0 0 35px rgba(6, 182, 212, 0.8)) hue-rotate(90deg); }
+      66% { filter: drop-shadow(0 0 35px rgba(217, 70, 239, 0.75)) hue-rotate(180deg); }
+      85% { filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.75)) hue-rotate(270deg); }
+      100% { filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.7)) hue-rotate(360deg); }
+    }
+    @keyframes neonFloatOrb1 {
+      0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.65; }
+      33% { transform: translate(60px, -40px) scale(1.15); opacity: 0.85; }
+      66% { transform: translate(-50px, 50px) scale(0.9); opacity: 0.7; }
+    }
+    @keyframes neonFloatOrb2 {
+      0%, 100% { transform: translate(0px, 0px) scale(1.1); opacity: 0.6; }
+      50% { transform: translate(-70px, -60px) scale(0.85); opacity: 0.8; }
+    }
+    @keyframes neonFloatOrb3 {
+      0%, 100% { transform: translate(0px, 0px) scale(0.95); opacity: 0.55; }
+      50% { transform: translate(50px, 70px) scale(1.2); opacity: 0.75; }
+    }
+    .animate-neon-orb-1 {
+      animation: neonFloatOrb1 18s ease-in-out infinite, neonShift 22s linear infinite;
+    }
+    .animate-neon-orb-2 {
+      animation: neonFloatOrb2 24s ease-in-out infinite, neonShift 28s linear infinite reverse;
+    }
+    .animate-neon-orb-3 {
+      animation: neonFloatOrb3 20s ease-in-out infinite, neonShift 19s linear infinite;
+    }
+
+    /* Falling Birthday Text Stream Animation */
+    @keyframes fallBirthdayStream {
+      0% {
+        transform: translateY(-160px) rotate(var(--fall-rot, 0deg));
+        opacity: 0;
+      }
+      12% {
+        opacity: var(--fall-max-opacity, 0.65);
+      }
+      88% {
+        opacity: var(--fall-max-opacity, 0.65);
+      }
+      100% {
+        transform: translateY(108vh) rotate(calc(var(--fall-rot, 0deg) + 6deg));
+        opacity: 0;
+      }
+    }
+    .animate-falling-text {
+      animation: fallBirthdayStream var(--fall-duration, 14s) linear infinite;
+      animation-delay: var(--fall-delay, 0s);
+      will-change: transform, opacity;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-300 relative overflow-x-hidden flex flex-col justify-between">
+
+  <!-- 0. Full Website Background: Compressed Spendy Birthday Portrait with Blur Effect -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-slate-950">
+    <img 
+      src="spendy-bg-compressed.jpg" 
+      alt="Spendy Birthday Background" 
+      class="w-full h-full object-cover object-center filter blur-md sm:blur-lg scale-105 opacity-40 brightness-85 contrast-110"
+      onerror="this.style.display='none'"
+    />
+    <div class="absolute inset-0 bg-slate-950/65 mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/80"></div>
+  </div>
+
+  <!-- Falling 'HAPPY SPECIAL BIRTHDAY SPENDY' celebratory text rain in background -->
+  <div aria-hidden="true" class="fixed inset-0 pointer-events-none overflow-hidden select-none z-0">
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-amber-300 drop-shadow-[0_0_10px_rgba(245,158,11,0.7)] text-xs sm:text-sm"
+      style="left: 3%; top: 0; --fall-duration: 16s; --fall-delay: -4s; --fall-rot: -4deg; --fall-max-opacity: 0.55;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">✨ HAPPY SPECIAL BIRTHDAY SPENDY ✨</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-emerald-300 drop-shadow-[0_0_10px_rgba(16,185,129,0.6)] text-[11px] sm:text-xs"
+      style="left: 11%; top: 0; --fall-duration: 21s; --fall-delay: -11s; --fall-rot: 2deg; --fall-max-opacity: 0.45;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">★ HAPPY SPECIAL BIRTHDAY SPENDY ★</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-cyan-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.6)] text-xs sm:text-sm"
+      style="left: 19%; top: 0; --fall-duration: 14s; --fall-delay: -2s; --fall-rot: -3deg; --fall-max-opacity: 0.5;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">HAPPY SPECIAL BIRTHDAY SPENDY</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-fuchsia-300 drop-shadow-[0_0_10px_rgba(217,70,239,0.6)] text-[10px] sm:text-xs"
+      style="left: 27%; top: 0; --fall-duration: 19s; --fall-delay: -15s; --fall-rot: 5deg; --fall-max-opacity: 0.45;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">🎂 HAPPY SPECIAL BIRTHDAY SPENDY 🎂</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-amber-200 drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] text-xs sm:text-sm"
+      style="left: 35%; top: 0; --fall-duration: 17s; --fall-delay: -7s; --fall-rot: -2deg; --fall-max-opacity: 0.55;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">✨ HAPPY SPECIAL BIRTHDAY SPENDY ✨</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.6)] text-[10px] sm:text-xs"
+      style="left: 42%; top: 0; --fall-duration: 23s; --fall-delay: -18s; --fall-rot: 3deg; --fall-max-opacity: 0.4;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">★ LEVEL 24 UNLOCKED ★ SPENDY</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-cyan-200 drop-shadow-[0_0_10px_rgba(103,232,249,0.6)] text-xs sm:text-sm"
+      style="left: 50%; top: 0; --fall-duration: 15s; --fall-delay: -5s; --fall-rot: 0deg; --fall-max-opacity: 0.5;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">HAPPY SPECIAL BIRTHDAY SPENDY</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.7)] text-xs sm:text-sm"
+      style="left: 58%; top: 0; --fall-duration: 18s; --fall-delay: -13s; --fall-rot: -4deg; --fall-max-opacity: 0.55;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">✨ HAPPY SPECIAL BIRTHDAY SPENDY ✨</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-teal-300 drop-shadow-[0_0_10px_rgba(45,212,191,0.6)] text-[11px] sm:text-xs"
+      style="left: 66%; top: 0; --fall-duration: 22s; --fall-delay: -9s; --fall-rot: 4deg; --fall-max-opacity: 0.45;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">★ HAPPY SPECIAL BIRTHDAY SPENDY ★</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-cyan-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.6)] text-xs sm:text-sm"
+      style="left: 74%; top: 0; --fall-duration: 16s; --fall-delay: -3s; --fall-rot: -2deg; --fall-max-opacity: 0.5;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">HAPPY SPECIAL BIRTHDAY SPENDY</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-amber-200 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)] text-[11px] sm:text-xs"
+      style="left: 82%; top: 0; --fall-duration: 20s; --fall-delay: -16s; --fall-rot: 3deg; --fall-max-opacity: 0.45;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">🎂 HAPPY SPECIAL BIRTHDAY SPENDY 🎂</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-emerald-300 drop-shadow-[0_0_10px_rgba(16,185,129,0.7)] text-xs sm:text-sm"
+      style="left: 90%; top: 0; --fall-duration: 17s; --fall-delay: -8s; --fall-rot: -3deg; --fall-max-opacity: 0.55;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">✨ HAPPY SPECIAL BIRTHDAY SPENDY ✨</span>
+    </div>
+    <div class="absolute animate-falling-text whitespace-nowrap font-mono font-black tracking-wider uppercase text-purple-300 drop-shadow-[0_0_10px_rgba(192,132,252,0.6)] text-[10px] sm:text-xs"
+      style="left: 96%; top: 0; --fall-duration: 24s; --fall-delay: -12s; --fall-rot: 2deg; --fall-max-opacity: 0.4;">
+      <span class="inline-block px-2.5 py-1 rounded-full bg-slate-950/40 backdrop-blur-[2px] border border-white/10">★ HAPPY SPECIAL BIRTHDAY SPENDY ★</span>
+    </div>
+  </div>
+
+  <!-- Dynamic Color-Shifting Neon Lights in Background -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-24 -left-24 w-[480px] sm:w-[680px] h-[480px] sm:h-[680px] rounded-full blur-[100px] sm:blur-[130px] opacity-65 animate-neon-orb-1 mix-blend-screen"
+      style="background: radial-gradient(circle, rgba(16,185,129,0.55) 0%, rgba(6,182,212,0.3) 45%, transparent 75%);"></div>
+    <div class="absolute top-1/3 -right-28 w-[420px] sm:w-[620px] h-[420px] sm:h-[620px] rounded-full blur-[90px] sm:blur-[120px] opacity-55 animate-neon-orb-2 mix-blend-screen"
+      style="background: radial-gradient(circle, rgba(245,158,11,0.5) 0%, rgba(217,70,239,0.35) 50%, transparent 75%);"></div>
+    <div class="absolute -bottom-32 left-1/4 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full blur-[95px] sm:blur-[125px] opacity-60 animate-neon-orb-3 mix-blend-screen"
+      style="background: radial-gradient(circle, rgba(6,182,212,0.45) 0%, rgba(16,185,129,0.3) 45%, transparent 75%);"></div>
+    <div class="absolute top-0 left-0 right-0 h-[2px] opacity-70 animate-pulse"
+      style="background: linear-gradient(90deg, transparent, rgba(16,185,129,0.8), rgba(6,182,212,0.9), rgba(245,158,11,0.8), transparent);"></div>
+  </div>
+
+  <!-- 1. Low-opacity moving grid background -->
+  <div class="fixed inset-0 bg-grid-overlay animate-grid-drift pointer-events-none z-0 opacity-70"></div>
+  
+  <!-- 2. Faint cyber scanline sweep -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="w-full h-28 bg-gradient-to-b from-transparent via-emerald-500/[0.035] to-transparent animate-scanline"></div>
+  </div>
+
+  <!-- 3. HTML5 Canvas for subtle fintech data streams & floating nodes -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Ambient background glow spots -->
+  <div class="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 sm:w-[600px] h-96 sm:h-[600px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none z-0"></div>
+  <div class="fixed bottom-10 right-10 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl pointer-events-none z-0"></div>
+
+  <!-- Persistent Web3 / Fintech App Header -->
+  <header class="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between border-b border-slate-800/80">
+    <div class="flex items-center gap-3">
+      <div class="h-9 w-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-sm shadow-emerald-500/20">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-mono font-bold text-xs sm:text-sm tracking-wider text-white">LEVEL UP PROTOCOL</span>
+          <span class="text-[10px] font-mono text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">MAINNET</span>
+        </div>
+        <p class="text-[11px] font-mono text-slate-500 hidden sm:block">SEPTEMBER 15 &bull; BIRTHDAY EDITION</p>
+      </div>
+    </div>
+
+    <!-- Right Header Stats & Controls -->
+    <div class="flex items-center gap-3 sm:gap-4 text-xs font-mono text-slate-400">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300">BLOCK #0x8f3c...b49e</span>
+      </div>
+      <!-- Audio toggle button -->
+      <button id="sound-toggle-btn" class="p-2 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-emerald-400 transition-colors" title="Toggle audio chime">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Hero Screen -->
+  <main class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-12 md:py-20 max-w-4xl mx-auto w-full text-center">
+    
+    <!-- Status Radar Badge -->
+    <div class="mb-4 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 shadow-xl shadow-black/40 backdrop-blur-md">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-radar-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_8px_#10B981]"></span>
+      </span>
+      <span class="text-xs font-mono font-semibold tracking-wider text-emerald-400 uppercase">
+        INCOMING BIRTHDAY DROP READY
+      </span>
+      <span class="hidden sm:inline-block w-1 h-1 rounded-full bg-slate-700"></span>
+      <span class="hidden sm:inline-block text-[11px] font-mono text-slate-400">HOLD OVERRIDE: ACTIVE</span>
+    </div>
+
+    <!-- Birthday Present Attribution Pill -->
+    <div class="mb-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[11px] sm:text-xs font-mono text-emerald-400">
+      <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+      <span>SPECIAL BIRTHDAY PRESENT:</span>
+      <span class="font-bold text-white">SPLENZZY</span>
+      <span class="text-emerald-500">→</span>
+      <span class="font-bold text-emerald-300">SPENDY</span>
+    </div>
+
+    <!-- 2. Main Heading -->
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 font-mono uppercase">
+      LEVEL UP <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 bg-clip-text text-transparent">PROTOCOL</span>
+    </h1>
+
+    <!-- 3. Subtitle -->
+    <p class="text-slate-300 text-sm sm:text-base md:text-lg max-w-xl mb-10 sm:mb-12 leading-relaxed font-sans font-normal">
+      Process the pending birthday drop for honoree <span class="text-emerald-400 font-bold font-mono">SPENDY</span> who entered <span class="text-amber-300 font-black font-mono bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">24 TODAY</span> to bypass traditional institutional processing delays — an exclusive birthday present protocol minted by <span class="text-amber-300 font-bold font-mono">SPLENZZY</span>.
+    </p>
+
+    <!-- 4. Primary Action Button with Mouse-Tracking Sparkle Effect -->
+    <div class="relative inline-block">
+      <!-- Ambient background bloom glow -->
+      <div class="absolute -inset-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 rounded-2xl blur-xl opacity-40 group-hover:opacity-75 transition duration-500 animate-pulse pointer-events-none"></div>
+
+      <button 
+        id="execute-btn"
+        class="animate-pulse-glow group relative inline-flex items-center justify-center gap-3 px-8 sm:px-11 py-4 sm:py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-mono font-bold text-base sm:text-lg tracking-wider transition-all duration-200 cursor-pointer select-none border border-emerald-300/40 shadow-2xl shadow-emerald-500/30 overflow-hidden"
+      >
+        <!-- Canvas for dynamic mouse sparkles -->
+        <canvas id="btn-sparkle-canvas" class="absolute inset-0 pointer-events-none rounded-2xl"></canvas>
+
+        <!-- Lightning / Trade Icon -->
+        <svg class="relative z-10 w-6 h-6 text-slate-950 transition-transform group-hover:scale-110 group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span class="relative z-10">EXECUTE NEXT TRANSACTION</span>
+        <svg class="relative z-10 w-4 h-4 text-slate-900 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="20" y1="17" x2="4" y2="17"></line><polyline points="10 11 4 17 10 23"></polyline><line x1="4" y1="7" x2="20" y2="7"></line><polyline points="14 1 20 7 14 13"></polyline></svg>
+      </button>
+    </div>
+
+    <!-- Telemetry Badges Below Button -->
+    <div class="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-mono text-slate-400">
+      <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
+        <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Settlement Speed: <span class="text-emerald-400 font-semibold">Instant (0 Blocks)</span>
+      </span>
+      <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
+        <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        Institutional Hold: <span class="text-amber-400 font-semibold">Bypassed</span>
+      </span>
+      <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
+        <svg class="w-3.5 h-3.5 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        Gas: <span class="text-slate-200 font-semibold">$0.00 (Gift Sponsored)</span>
+      </span>
+    </div>
+  </main>
+
+  <!-- Small 'Level 24 Unlocked' Achievement Badge in Corner (Appears once receipt is dismissed) -->
+  <div 
+    id="achievement-badge" 
+    class="fixed bottom-24 sm:bottom-28 right-3 sm:right-6 z-40 max-w-[340px] sm:max-w-sm w-full hidden opacity-0 translate-y-8 transition-all duration-500 ease-out"
+  >
+    <div 
+      id="achievement-badge-card"
+      class="group relative cursor-pointer overflow-hidden rounded-2xl bg-slate-900/95 p-3.5 sm:p-4 border-2 border-emerald-400/50 shadow-2xl shadow-emerald-950/80 backdrop-blur-xl hover:border-emerald-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.35)] transition-all duration-300"
+    >
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-emerald-400 to-teal-400"></div>
+      
+      <button 
+        id="achievement-close-btn"
+        class="absolute top-2.5 right-2.5 p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+        title="Dismiss Badge"
+      >
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="flex items-start gap-3">
+        <div class="relative shrink-0 mt-0.5">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500/25 via-emerald-500/20 to-teal-500/10 border border-amber-400/40 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+            <svg class="w-6 h-6 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+          </div>
+          <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center">
+            <svg class="w-2.5 h-2.5 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+        </div>
+
+        <div class="flex-1 pr-4">
+          <div class="flex items-center gap-1.5">
+            <span class="text-[10px] font-mono font-black uppercase tracking-wider text-amber-300 bg-amber-500/15 px-1.5 py-0.5 rounded border border-amber-400/30">
+              PROTOCOL COMPLETE
+            </span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          </div>
+
+          <div class="mt-1 flex items-baseline gap-1.5">
+            <h4 class="text-sm sm:text-base font-black font-mono text-white tracking-tight">
+              Level 24 Unlocked
+            </h4>
+            <span class="text-[10px] font-mono text-emerald-400 font-bold">
+              ★ TODAY
+            </span>
+          </div>
+
+          <p class="text-[11px] text-slate-300 font-mono mt-0.5">
+            Honoree: <strong class="text-emerald-300">SPENDY</strong> &bull; From: <strong class="text-amber-300">SPLENZZY</strong>
+          </p>
+
+          <div class="mt-2.5 flex items-center gap-2">
+            <button
+              id="achievement-view-btn"
+              type="button"
+              class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 hover:bg-emerald-500/30 text-[11px] font-mono font-bold transition-all cursor-pointer"
+            >
+              <span>View Receipt</span>
+              <span>➔</span>
+            </button>
+            <button
+              id="achievement-confetti-btn"
+              type="button"
+              class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-amber-300 text-[11px] font-mono font-bold border border-slate-700 transition-colors cursor-pointer"
+            >
+              <span>Confetti</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sleek Celebration Footer -->
+  <footer class="relative z-10 w-full text-center py-4 border-t border-slate-900 bg-slate-950/90 backdrop-blur-sm text-[11px] font-mono text-slate-400">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>SPENDY LEVEL 24 CELEBRATION &bull; SEPTEMBER 15, 2026</span>
+      <div class="flex items-center gap-3">
+        <span>HONOREE: <strong class="text-emerald-300 font-extrabold">SPENDY</strong></span>
+        <span class="text-slate-700">&bull;</span>
+        <span>PRESENT FROM: <strong class="text-amber-300 font-extrabold">SPLENZZY</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 3-Second High-Tech Countdown Overlay -->
+  <div 
+    id="countdown-overlay" 
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl select-none transition-opacity duration-200"
+  >
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.12)_0%,transparent_70%)] pointer-events-none"></div>
+    <div 
+      id="countdown-card" 
+      class="relative w-full max-w-md p-6 sm:p-8 rounded-3xl bg-slate-900/95 border-2 border-emerald-500/40 shadow-2xl shadow-emerald-950/60 text-center overflow-hidden transition-all duration-300 transform scale-95"
+    >
+      <div id="countdown-beam" class="h-1.5 w-full bg-gradient-to-r from-emerald-400 to-teal-400 animate-pulse"></div>
+
+      <div class="mt-4 mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-xs font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="text-slate-300 font-bold">TRANSACTION IN FLIGHT:</span>
+        <span class="text-amber-300 font-extrabold">SPLENZZY</span>
+        <span class="text-slate-500">➔</span>
+        <span class="text-emerald-300 font-extrabold">SPENDY</span>
+      </div>
+
+      <div class="relative my-4 flex items-center justify-center">
+        <div class="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center">
+          <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" class="text-slate-800 stroke-current" stroke-width="4" fill="transparent"></circle>
+            <circle id="countdown-circle" cx="50" cy="50" r="42" stroke="#10B981" stroke-width="6" stroke-linecap="round" fill="transparent" stroke-dasharray="264" stroke-dashoffset="176" style="transition: stroke-dashoffset 0.8s ease-out, stroke 0.3s ease"></circle>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span id="countdown-num" class="text-6xl sm:text-7xl font-black font-mono tracking-tighter text-emerald-400 drop-shadow-[0_0_25px_currentColor]">3</span>
+            <span id="countdown-label" class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-widest mt-1">SECONDS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 space-y-1.5">
+        <div id="countdown-title" class="text-xs sm:text-sm font-mono font-extrabold text-white tracking-wide uppercase">
+          SYNCHRONIZING VERIFIED NODES
+        </div>
+        <p id="countdown-sub" class="text-xs text-slate-300 font-sans leading-relaxed">
+          Initiating Age 24 Level-Up Sequence...
+        </p>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+        <div class="flex items-center gap-1.5 text-emerald-400 font-bold">
+          <span>★ LEVEL 24 UNLOCKED TODAY</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-cyan-300 font-bold">
+          <span>SEPTEMBER 15</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- High-Tech "Partnership Receipt" Modal -->
+  <div 
+    id="receipt-modal" 
+    class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto bg-slate-950/85 backdrop-blur-md transition-all duration-300"
+  >
+    <div class="relative w-full max-w-xl my-auto flex flex-col items-center gap-2 sm:gap-3">
+      <!-- Real-time horizontal scrolling banner ABOVE the pop-up message -->
+      <div 
+        id="birthday-scrolling-marquee" 
+        class="w-full overflow-hidden rounded-2xl bg-slate-950/95 border-2 border-emerald-400/60 shadow-[0_0_35px_rgba(16,185,129,0.4)] py-2 sm:py-2.5 px-2 backdrop-blur-xl relative"
+      >
+        <!-- Neon top accent glow bar -->
+        <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400 animate-pulse"></div>
+        
+        <div class="flex select-none whitespace-nowrap overflow-hidden">
+          <div class="animate-marquee inline-flex items-center gap-6 font-mono font-black text-xs sm:text-sm tracking-wider uppercase">
+            <span class="text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.7)] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber-400 animate-spin" style="animation-duration: 6s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              HAPPY SPECIAL BIRTHDAY SPENDY
+            </span>
+            <span class="text-slate-600">//</span>
+            <span class="text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.7)]">★ LEVEL 24 UNLOCKED ★</span>
+            <span class="text-slate-600">//</span>
+            <span class="text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.7)]">VIP BIRTHDAY DROP FROM SPLENZZY</span>
+            <span class="text-slate-600">//</span>
+            <span class="text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.7)] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber-400 animate-spin" style="animation-duration: 6s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              HAPPY SPECIAL BIRTHDAY SPENDY
+            </span>
+            <span class="text-slate-600">//</span>
+            <span class="text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.7)]">★ LEVEL 24 UNLOCKED ★</span>
+            <span class="text-slate-600">//</span>
+            <span class="text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.7)]">VIP BIRTHDAY DROP FROM SPLENZZY</span>
+            <span class="text-slate-600">//</span>
+          </div>
+          <div class="animate-marquee inline-flex items-center gap-6 font-mono font-black text-xs sm:text-sm tracking-wider uppercase" aria-hidden="true">
+            <span class="text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.7)] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber-400 animate-spin" style="animation-duration: 6s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              HAPPY SPECIAL BIRTHDAY SPENDY
+            </span>
+            <span class="text-slate-600">//</span>
+            <span class="text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.7)]">★ LEVEL 24 UNLOCKED ★</span>
+            <span class="text-slate-600">//</span>
+            <span class="text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.7)]">VIP BIRTHDAY DROP FROM SPLENZZY</span>
+            <span class="text-slate-600">//</span>
+            <span class="text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.7)] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber-400 animate-spin" style="animation-duration: 6s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              HAPPY SPECIAL BIRTHDAY SPENDY
+            </span>
+            <span class="text-slate-600">//</span>
+            <span class="text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.7)]">★ LEVEL 24 UNLOCKED ★</span>
+            <span class="text-slate-600">//</span>
+            <span class="text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.7)]">VIP BIRTHDAY DROP FROM SPLENZZY</span>
+            <span class="text-slate-600">//</span>
+          </div>
+        </div>
+      </div>
+
+      <div 
+        id="receipt-card" 
+        class="relative w-full rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl shadow-emerald-950/40 text-slate-100 overflow-hidden transform scale-95 opacity-0 transition-all duration-300"
+      >
+      <!-- Background Image Layer for the Pop-up Modal -->
+      <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <img
+          src="/popup-birthday-bg.jpg"
+          alt="Spendy Birthday Special"
+          class="w-full h-full object-cover object-center opacity-30 filter contrast-115 brightness-90"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-900/80 to-slate-950/90"></div>
+      </div>
+
+      <!-- Top decorative cryptographic accent line -->
+      <div class="relative z-10 h-1.5 w-full bg-gradient-to-r from-amber-400 via-emerald-400 to-teal-400"></div>
+
+      <!-- Header: PARTNERSHIP RECEIPT + STATUS: CONFIRMED badge + Close button -->
+      <div class="relative z-10 flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-800 bg-slate-900/90 backdrop-blur-sm">
+        <div class="flex items-center gap-3">
+          <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <div>
+            <h2 class="text-base sm:text-lg font-bold font-mono tracking-tight text-white">PARTNERSHIP RECEIPT</h2>
+            <p class="text-[11px] font-mono text-slate-400">SEPTEMBER 15 &bull; SETTLED TRANSACTION LOG</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Green STATUS: CONFIRMED Badge -->
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-semibold">
+            <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>STATUS: CONFIRMED</span>
+          </div>
+
+          <!-- Functional Close Button -->
+          <button id="modal-close-btn" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="Close Modal">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="relative z-10 p-5 sm:p-6 space-y-5 max-h-[75vh] overflow-y-auto">
+
+        <!-- Special Birthday Present Banner from SPLENZZY -->
+        <div class="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-amber-500/15 via-emerald-500/15 to-teal-500/10 border border-amber-500/40 shadow-inner">
+          <div class="flex items-center gap-2.5">
+            <div class="p-2 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+            </div>
+            <div>
+              <div class="text-[11px] font-mono text-amber-300 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <span>SPECIAL BIRTHDAY PRESENT</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/25 text-amber-200">VERIFIED</span>
+              </div>
+              <div class="text-xs sm:text-sm font-bold text-white font-mono mt-0.5">
+                GIFT FROM <span class="text-amber-400 font-extrabold underline decoration-amber-500/50 decoration-2 underline-offset-2">SPLENZZY</span> TO <span class="text-emerald-400 font-extrabold">SPENDY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. BIRTHDAY MESSAGE (APPEARS FIRST BEFORE INFORMATION, LARGER AND BOLD) -->
+        <div class="relative rounded-2xl p-5 sm:p-6 border-2 border-emerald-500/50 shadow-xl shadow-emerald-950/40 overflow-hidden bg-slate-950/85 backdrop-blur-md">
+          <!-- Pop-up Message Background Image -->
+          <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <img
+              src="/popup-birthday-bg.jpg"
+              alt="Spendy Birthday Special"
+              class="w-full h-full object-cover object-top opacity-35 filter contrast-125 brightness-95"
+              loading="eager"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/80 to-slate-950/70"></div>
+          </div>
+
+          <div class="relative z-10">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-800/90">
+              <div class="flex items-center gap-2.5 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
+                <div class="w-7 h-7 rounded-full overflow-hidden border border-amber-400 shadow-sm shrink-0">
+                  <img src="/popup-birthday-bg.jpg" alt="Spendy" class="w-full h-full object-cover object-top" />
+                </div>
+                <span>BIRTHDAY MEMORANDUM // FROM SPLENZZY</span>
+              </div>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-mono text-emerald-400 font-bold">SEPTEMBER 15 DEDICATION</span>
+            </div>
+
+            <!-- Larger & Bold Birthday Message -->
+            <div class="relative my-2">
+              <span class="text-3xl sm:text-4xl text-emerald-500/40 font-serif leading-none select-none block -mb-2">“</span>
+              <p id="display-partner-note" class="text-base sm:text-lg md:text-xl font-bold leading-relaxed text-white font-sans tracking-tight px-1">
+                Happy Birthday to the one and only SPENDY! This level up protocol is your official birthday present from SPLENZZY. Another legendary year of breaking ceilings, dominating allocations, surviving chaotic bank holds and wire freezes, and conquering market volatility together. Entering <span class="text-amber-300 font-black bg-amber-500/20 px-1.5 py-0.5 rounded border border-amber-500/30">24 TODAY</span> with unshakeable execution and visionary drive making this unstoppable partnership. Massive liquidity events, milestone drops, and historic trades are unlocked ahead. Level 24 confirmed — let’s keep winning.
+              </p>
+              <span class="text-3xl sm:text-4xl text-emerald-500/40 font-serif leading-none select-none block text-right -mt-2">”</span>
+            </div>
+
+            <div class="mt-4 pt-3.5 border-t border-slate-800/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs font-mono">
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="text-slate-400">Gift Originator:</span>
+                <span class="text-amber-400 font-extrabold">SPLENZZY</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">FOUNDER</span>
+              </div>
+              <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 fill-emerald-400 text-emerald-400" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                100% Shared Wins & Partner Bond
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. RECIPIENT INFORMATION & TRANSACTION METADATA (APPEARS AFTER THE MESSAGE) -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between px-1 text-xs font-mono text-slate-400">
+            <span class="font-semibold uppercase tracking-wider text-slate-300">
+              Recipient & Transaction Information
+            </span>
+            <span class="text-[10px] text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Verified on Block #0x8f3c...b49e
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Birthday Recipient - Large & Colorful -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-emerald-950/60 to-slate-950/90 border-2 border-emerald-500/40 shadow-lg shadow-emerald-950/30">
+              <div class="flex items-center justify-between text-xs font-mono text-emerald-400/90 mb-1.5 font-bold uppercase tracking-wider">
+                <span>BIRTHDAY RECIPIENT</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">VIP HONOREE</span>
+              </div>
+              <div id="display-partner-name" class="text-3xl sm:text-4xl font-black font-mono tracking-tight text-emerald-300">
+                SPENDY
+              </div>
+              <p class="text-xs font-mono text-slate-400 mt-1">
+                Target Account: Executive Founding Partner
+              </p>
+            </div>
+
+            <!-- Present From (Sender) - Large & Colorful -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-amber-950/60 to-slate-950/90 border-2 border-amber-500/40 shadow-lg shadow-amber-950/30">
+              <div class="flex items-center justify-between text-xs font-mono text-amber-400/90 mb-1.5 font-bold uppercase tracking-wider">
+                <span class="flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line></svg>
+                  PRESENT FROM
+                </span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300">ORIGINATOR</span>
+              </div>
+              <div class="text-3xl sm:text-4xl font-black font-mono tracking-tight text-amber-300">
+                SPLENZZY
+              </div>
+              <p class="text-xs font-mono text-slate-400 mt-1">
+                Gift Protocol Architect & Co-Founder
+              </p>
+            </div>
+
+            <!-- Age Unlocked - Large & Colorful -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-teal-950/60 to-slate-950/90 border-2 border-teal-500/40 shadow-lg shadow-teal-950/30">
+              <div class="text-xs font-mono text-teal-400/90 mb-1.5 font-bold uppercase tracking-wider">
+                AGE UNLOCKED
+              </div>
+              <div class="flex items-baseline gap-3">
+                <span id="display-age" class="text-4xl sm:text-5xl font-black font-mono text-white">24</span>
+                <span class="text-xl sm:text-2xl font-bold font-mono text-teal-300">YEARS</span>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-mono font-bold">+1 TIER LEVEL UP</span>
+              </div>
+              <p class="text-xs font-mono text-slate-400 mt-1">
+                Next Milestones & Maximum Tier Allocation Active
+              </p>
+            </div>
+
+            <!-- Transaction ID - Large & Colorful -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-cyan-950/60 to-slate-950/90 border-2 border-cyan-500/40 shadow-lg shadow-cyan-950/30">
+              <div class="flex items-center justify-between text-xs font-mono text-cyan-400/90 mb-1.5 font-bold uppercase tracking-wider">
+                <span>TRANSACTION HASH</span>
+                <button id="copy-tx-btn" class="text-cyan-300 hover:text-white text-xs font-bold transition-colors">Copy</button>
+              </div>
+              <div id="display-tx" class="font-mono text-base sm:text-lg font-black text-white tracking-wider break-all">TX-SPENDY-2026-0915</div>
+              <p class="text-xs font-mono text-slate-400 mt-1">
+                Timestamp: 2026-09-15 09:16:43 UTC
+              </p>
+            </div>
+
+            <!-- Bank Status (Amber/Gold & Emerald) - Large & Colorful -->
+            <div class="sm:col-span-2 p-5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-emerald-950/40 border-2 border-amber-500/40 shadow-xl">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                <span class="flex items-center gap-2 text-xs sm:text-sm font-mono font-extrabold text-amber-300 uppercase tracking-wider">
+                  <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  INSTITUTIONAL BANK STATUS
+                </span>
+                <span class="self-start sm:self-center text-xs font-mono font-bold text-emerald-300 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-400/50">
+                  HOLD BYPASS: 100% SUCCESS
+                </span>
+              </div>
+              <div class="text-lg sm:text-xl font-mono font-extrabold text-white flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <span class="text-amber-300">Bypassed / Pending Release</span>
+                <span class="text-xs font-mono text-emerald-400 font-bold">Settlement: Instant (0 Blocks Pending)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Protocol Info -->
+          <div class="grid grid-cols-2 text-[11px] font-mono text-slate-400 px-1 pt-1">
+            <div>Gas: <span class="text-emerald-400 font-semibold">$0.00 (Gift Subsidized)</span></div>
+            <div class="text-right">Timestamp: <span class="text-slate-300">2026-09-15 09:16:43 UTC</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 sm:p-6 border-t border-slate-800 bg-slate-900/90 flex flex-col sm:flex-row items-center gap-3">
+        <!-- Re-blast confetti -->
+        <button id="modal-confetti-btn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Blast Confetti</span>
+        </button>
+
+        <!-- Primary Action: Acknowledge & Close -->
+        <button id="acknowledge-close-btn" class="w-full sm:flex-1 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-bold text-xs sm:text-sm tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/20 cursor-pointer">
+          <span>ACKNOWLEDGE & CLOSE</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <!-- Interactive JavaScript Engine -->
+  <script>
+    // Sound chime synthesizer
+    let soundEnabled = true;
+    function playChime() {
+      if (!soundEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        const freqs = [523.25, 659.25, 783.99, 1046.50];
+        freqs.forEach((f, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(f, now + i * 0.08);
+          gain.gain.setValueAtTime(0.12, now + i * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 0.6);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.08);
+          osc.stop(now + i * 0.08 + 0.65);
+        });
+      } catch (err) {
+        console.warn('Audio note blocked or unsupported:', err);
+      }
+    }
+
+    // Background Canvas: Subtle Fintech Data Streams & Floating Constellations
+    (function initBackgroundCanvas() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const colors = ['rgba(16, 185, 129, ', 'rgba(52, 211, 153, ', 'rgba(245, 158, 11, '];
+      const count = Math.min(32, Math.floor(width / 36));
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          radius: Math.random() * 1.5 + 1.2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: Math.random() * 0.22 + 0.1
+        });
+      }
+
+      const streams = [];
+      const tokens = ['0x9F', 'SPENDY', 'SPLENZZY', 'TX99', 'BLK', '100%', '0.00', 'SEP15'];
+      for (let i = 0; i < 7; i++) {
+        streams.push({
+          x: Math.floor((Math.random() * width) / 32) * 32 + 16,
+          y: Math.random() * height,
+          speed: Math.random() * 0.7 + 0.6,
+          chars: [tokens[i % tokens.length], tokens[(i + 2) % tokens.length]],
+          color: i % 2 === 0 ? '16, 185, 129' : '245, 158, 11'
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.font = '9px "JetBrains Mono", monospace';
+
+        // Data streams
+        streams.forEach(s => {
+          s.y += s.speed;
+          if (s.y > height + 40) {
+            s.y = -30;
+            s.x = Math.floor((Math.random() * width) / 32) * 32 + 16;
+          }
+          s.chars.forEach((c, idx) => {
+            const y = s.y - idx * 15;
+            ctx.fillStyle = 'rgba(' + s.color + ', ' + (0.13 / (idx + 1)) + ')';
+            ctx.fillText(c, s.x, y);
+          });
+        });
+
+        // Floating nodes & connecting vectors
+        for (let i = 0; i < particles.length; i++) {
+          const p1 = particles[i];
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 100) {
+              ctx.strokeStyle = 'rgba(52, 211, 153, ' + ((1 - d / 100) * 0.06) + ')';
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+
+          p1.x += p1.vx;
+          p1.y += p1.vy;
+          if (p1.x < 0) p1.x = width;
+          if (p1.x > width) p1.x = 0;
+          if (p1.y < 0) p1.y = height;
+          if (p1.y > height) p1.y = 0;
+
+          ctx.fillStyle = p1.color + p1.alpha + ')';
+          ctx.beginPath();
+          ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+
+    // Mouse-Tracking Sparkle Effect on the Primary Action Button
+    (function initButtonSparkles() {
+      const btn = document.getElementById('execute-btn');
+      const canvas = document.getElementById('btn-sparkle-canvas');
+      if (!btn || !canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let sparkles = [];
+      const colors = ['#FFFFFF', '#34D399', '#FBBF24', '#6EE7B7', '#FDE047'];
+
+      function resizeCanvas() {
+        canvas.width = btn.offsetWidth;
+        canvas.height = btn.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function addSparkle(x, y, count = 2) {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 1.8 + 0.5;
+          sparkles.push({
+            x: x + (Math.random() - 0.5) * 14,
+            y: y + (Math.random() - 0.5) * 14,
+            size: Math.random() * 6 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 90,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 0.7,
+            opacity: 1
+          });
+        }
+      }
+
+      let lastEmit = 0;
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const now = Date.now();
+        if (now - lastEmit > 40) {
+          lastEmit = now;
+          addSparkle(x, y, 2);
+        }
+      });
+
+      btn.addEventListener('mouseenter', (e) => {
+        const rect = btn.getBoundingClientRect();
+        addSparkle(e.clientX - rect.left, e.clientY - rect.top, 4);
+      });
+
+      function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius, color, rotation, opacity) {
+        let rot = Math.PI / 2 * 3 + rotation;
+        let x = cx;
+        let y = cy;
+        let step = Math.PI / spikes;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - outerRadius);
+        for (let i = 0; i < spikes; i++) {
+          x = cx + Math.cos(rot) * outerRadius;
+          y = cy + Math.sin(rot) * outerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+
+          x = cx + Math.cos(rot) * innerRadius;
+          y = cy + Math.sin(rot) * innerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+        }
+        ctx.lineTo(cx, cy - outerRadius);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.globalAlpha = Math.max(0, opacity);
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 6;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function animateSparkles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = sparkles.length - 1; i >= 0; i--) {
+          const sp = sparkles[i];
+          sp.x += sp.vx;
+          sp.y += sp.vy;
+          sp.size *= 0.93;
+          sp.rotation += 0.08;
+          sp.opacity -= 0.025;
+
+          if (sp.size < 0.6 || sp.opacity <= 0) {
+            sparkles.splice(i, 1);
+            continue;
+          }
+          drawStar(ctx, sp.x, sp.y, 4, sp.size, sp.size * 0.35, sp.color, sp.rotation, sp.opacity);
+        }
+        requestAnimationFrame(animateSparkles);
+      }
+      animateSparkles();
+    })();
+
+    // Birthday celebration confetti sequence
+    function triggerCelebrationConfetti() {
+      if (typeof confetti === 'undefined') return;
+      const colors = ['#10B981', '#34D399', '#F59E0B', '#FBBF24', '#06B6D4', '#FFFFFF'];
+
+      confetti({
+        particleCount: 85,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: colors,
+        zIndex: 99999
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 65,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.75 },
+          colors: colors,
+          zIndex: 99999
+        });
+      }, 160);
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 65,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.75 },
+          colors: colors,
+          zIndex: 99999
+        });
+      }, 320);
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 90,
+          spread: 120,
+          origin: { y: 0.5 },
+          colors: ['#10B981', '#F59E0B', '#FFFFFF'],
+          gravity: 0.85,
+          ticks: 250,
+          zIndex: 99999
+        });
+      }, 480);
+    }
+
+    // Modal Controls
+    const receiptModal = document.getElementById('receipt-modal');
+    const receiptCard = document.getElementById('receipt-card');
+    const executeBtn = document.getElementById('execute-btn');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const acknowledgeCloseBtn = document.getElementById('acknowledge-close-btn');
+    const modalConfettiBtn = document.getElementById('modal-confetti-btn');
+    const copyTxBtn = document.getElementById('copy-tx-btn');
+    const soundToggleBtn = document.getElementById('sound-toggle-btn');
+
+    const countdownOverlay = document.getElementById('countdown-overlay');
+    const countdownCard = document.getElementById('countdown-card');
+    const countdownNum = document.getElementById('countdown-num');
+    const countdownCircle = document.getElementById('countdown-circle');
+    const countdownTitle = document.getElementById('countdown-title');
+    const countdownSub = document.getElementById('countdown-sub');
+    let isCountingDown = false;
+
+    function playTickSound(secondsLeft) {
+      if (!soundEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const baseFreq = secondsLeft === 3 ? 523.25 : secondsLeft === 2 ? 659.25 : 880;
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(baseFreq, now);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.35, now + 0.09);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.2, now + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.22);
+      } catch (e) {}
+    }
+
+    function updateCountdownPhase(sec) {
+      playTickSound(sec);
+      countdownNum.textContent = sec;
+
+      if (sec === 3) {
+        countdownTitle.textContent = 'SYNCHRONIZING VERIFIED NODES';
+        countdownSub.textContent = 'Initiating Age 24 Level-Up Sequence...';
+        countdownNum.className = 'text-6xl sm:text-7xl font-black font-mono tracking-tighter text-emerald-400 drop-shadow-[0_0_25px_currentColor]';
+        countdownCircle.setAttribute('stroke', '#10B981');
+        countdownCircle.style.strokeDashoffset = '176';
+      } else if (sec === 2) {
+        countdownTitle.textContent = 'OVERRIDING INSTITUTIONAL BANK HOLD';
+        countdownSub.textContent = 'Zero-Block Settlement Verification Underway...';
+        countdownNum.className = 'text-6xl sm:text-7xl font-black font-mono tracking-tighter text-amber-300 drop-shadow-[0_0_25px_currentColor]';
+        countdownCircle.setAttribute('stroke', '#F59E0B');
+        countdownCircle.style.strokeDashoffset = '88';
+      } else if (sec === 1) {
+        countdownTitle.textContent = 'DISPATCHING BIRTHDAY MESSAGE';
+        countdownSub.textContent = 'Delivering VIP Drop from SPLENZZY to SPENDY...';
+        countdownNum.className = 'text-6xl sm:text-7xl font-black font-mono tracking-tighter text-cyan-300 drop-shadow-[0_0_25px_currentColor]';
+        countdownCircle.setAttribute('stroke', '#06B6D4');
+        countdownCircle.style.strokeDashoffset = '15';
+      }
+    }
+
+    function startCountdown() {
+      if (isCountingDown) return;
+      isCountingDown = true;
+      executeBtn.disabled = true;
+
+      countdownOverlay.classList.remove('hidden');
+      countdownOverlay.classList.add('flex');
+      requestAnimationFrame(() => {
+        countdownCard.classList.remove('scale-95');
+        countdownCard.classList.add('scale-100');
+      });
+
+      updateCountdownPhase(3);
+
+      setTimeout(() => {
+        updateCountdownPhase(2);
+      }, 1000);
+
+      setTimeout(() => {
+        updateCountdownPhase(1);
+      }, 2000);
+
+      setTimeout(() => {
+        countdownCard.classList.remove('scale-100');
+        countdownCard.classList.add('scale-95');
+        setTimeout(() => {
+          countdownOverlay.classList.remove('flex');
+          countdownOverlay.classList.add('hidden');
+          isCountingDown = false;
+          executeBtn.disabled = false;
+          openModal();
+        }, 300);
+      }, 3000);
+    }
+
+    let hasCompletedProtocol = false;
+
+    function openModal() {
+      hasCompletedProtocol = true;
+      playChime();
+      triggerCelebrationConfetti();
+      receiptModal.classList.remove('hidden');
+      receiptModal.classList.add('flex');
+      requestAnimationFrame(() => {
+        receiptCard.classList.remove('scale-95', 'opacity-0');
+        receiptCard.classList.add('scale-100', 'opacity-100');
+      });
+    }
+
+    function closeModal() {
+      receiptCard.classList.remove('scale-100', 'opacity-100');
+      receiptCard.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        receiptModal.classList.remove('flex');
+        receiptModal.classList.add('hidden');
+        showAchievementBadge();
+      }, 200);
+    }
+
+    // Achievement Badge Logic
+    const achievementBadge = document.getElementById('achievement-badge');
+    const achievementCloseBtn = document.getElementById('achievement-close-btn');
+    const achievementViewBtn = document.getElementById('achievement-view-btn');
+    const achievementConfettiBtn = document.getElementById('achievement-confetti-btn');
+
+    function showAchievementBadge() {
+      if (!hasCompletedProtocol) return;
+      achievementBadge.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        achievementBadge.classList.remove('opacity-0', 'translate-y-8');
+        achievementBadge.classList.add('opacity-100', 'translate-y-0');
+      });
+    }
+
+    function hideAchievementBadge() {
+      achievementBadge.classList.remove('opacity-100', 'translate-y-0');
+      achievementBadge.classList.add('opacity-0', 'translate-y-8');
+      setTimeout(() => {
+        achievementBadge.classList.add('hidden');
+      }, 400);
+    }
+
+    achievementCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideAchievementBadge();
+    });
+
+    achievementViewBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal();
+    });
+
+    achievementConfettiBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      triggerCelebrationConfetti();
+    });
+
+    executeBtn.addEventListener('click', startCountdown);
+    modalCloseBtn.addEventListener('click', closeModal);
+    acknowledgeCloseBtn.addEventListener('click', closeModal);
+    modalConfettiBtn.addEventListener('click', triggerCelebrationConfetti);
+
+    receiptModal.addEventListener('click', (e) => {
+      if (e.target === receiptModal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !receiptModal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Copy Transaction ID
+    copyTxBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('TX-SPENDY-2026-0915').then(() => {
+        copyTxBtn.textContent = 'Copied!';
+        copyTxBtn.classList.add('text-emerald-400');
+        setTimeout(() => {
+          copyTxBtn.textContent = 'Copy';
+          copyTxBtn.classList.remove('text-emerald-400');
+        }, 1800);
+      });
+    });
+
+    // Toggle sound
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.classList.toggle('opacity-40', !soundEnabled);
+    });
+  </script>
+</body>
+</html>

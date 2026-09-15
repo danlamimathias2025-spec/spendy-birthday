@@ -1,0 +1,6 @@
+{
+  "name": "Level Up Protocol - Birthday Celebration",
+  "description": "A sleek Fintech & Web3 inspired birthday celebration app featuring the Level Up Protocol transaction release and partnership receipt.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

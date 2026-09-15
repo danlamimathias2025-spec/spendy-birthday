@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/GoogleCloudPlatform/firebase-tools/master/schema/firestore-blueprint.json",
+  "entities": {
+    "Wish": {
+      "collection": "wishes",
+      "fields": {
+        "senderName": { "type": "string", "description": "Name of the person wishing Spendy a happy birthday" },
+        "message": { "type": "string", "description": "Birthday message or note" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of the wish" },
+        "isGenesis": { "type": "boolean", "description": "Whether this is Splenzzy genesis wish" }
+      }
+    },
+    "CelebrationStats": {
+      "collection": "stats",
+      "fields": {
+        "totalUnlocks": { "type": "number", "description": "Total times the Level 24 protocol was executed" },
+        "lastUnlockedAt": { "type": "string", "description": "Timestamp of the most recent unlock" },
+        "honoree": { "type": "string", "description": "Honoree name: SPENDY" },
+        "level": { "type": "number", "description": "Current milestone level: 24" }
+      }
+    }
+  }
+}
